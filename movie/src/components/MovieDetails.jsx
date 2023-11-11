@@ -6,8 +6,10 @@ const MovieDetails = ({ selectedMovie, show, closeModal }) => {
   const [movieDetail, setMovieDetail] = useState(null);
 
   const fetchMovieDetails = async () => {
-    const response = await GetMovieDetails(selectedMovie.imdbID);
-    setMovieDetail(response);
+    if (selectedMovie && selectedMovie.imdbID) {
+      const response = await GetMovieDetails(selectedMovie.imdbID);
+      setMovieDetail(response);
+    }
   };
 
   useEffect(() => {

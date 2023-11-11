@@ -1,7 +1,7 @@
-// Title: https://omdbapi.com/?s=all&page=1&apikey=fc1fef96
 import React, { useEffect, useState } from "react";
 import MovieDetails from "./MovieDetails";
 import { FiEye } from "react-icons/fi";
+import { AiOutlineHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { GetMovies, GetSearchMovies } from "../api/GetRequest";
 
@@ -10,6 +10,11 @@ const Movie = () => {
   const [search, setSearch] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [show, setShow] = useState(false);
+  const [wishList, setWishList] = useState(
+    localStorage.getItem("wishList")
+      ? JSON.parse(localStorage.getItem("wishList"))
+      : []
+  );
 
   const fetchMovies = async () => {
     const response = await GetMovies();
@@ -19,6 +24,17 @@ const Movie = () => {
   const fetchSearchMovies = async () => {
     const response = await GetSearchMovies(search);
     setDatas(response ? response.Search : []);
+  };
+
+  const addToWishList = (imdbID) => {
+    const selectedMovie = datas.find((movie) => movie.imdbID === imdbID);
+    const existedMovie = wishList.find((movie) => movie.imdbID === imdbID);
+    const wishedMovies = existedMovie
+      ? [...wishList]
+      : [...wishList, selectedMovie];
+    setWishList(wishedMovies);
+    localStorage.setItem("wishList", JSON.stringify(wishedMovies));
+    // setWishList((prevDatas) => [...prevDatas, selectedMovie]);
   };
 
   const resetMovies = () => {
@@ -46,12 +62,12 @@ const Movie = () => {
 
   return (
     <>
-      <div className="d-flex justify-content-center my-4">
+      <div className="d-flex justify-content-center m-4">
         <div className="d-flex justify-content-center flex-column">
-          <div className="input-group w-100 border border-primary rounded mt-5">
+          <div className="input-group w-100 border border-primary rounded mt-2">
             <input
               type="text"
-              className="form-control "
+              className="form-control"
               placeholder="Search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -71,8 +87,8 @@ const Movie = () => {
           datas.map((movie, index) => (
             <div
               key={index}
-              className="card m-2 border-white"
-              style={{ width: "18rem" }}
+              className="card m-4 border-white"
+              style={{ width: "20rem" }}
             >
               <img
                 src={movie.Poster}
@@ -85,9 +101,18 @@ const Movie = () => {
               >
                 <h5 className="card-title my-3">{movie.Title.slice(0, 20)}</h5>
                 <p className="card-text">Year: {movie.Year}</p>
-                <p className="cursor" onClick={() => openModal(movie)}>
-                  <FiEye size={30} />
-                </p>
+                <div className="d-flex align-items-center ">
+                  <p className="cursor" onClick={() => openModal(movie)}>
+                    <FiEye size={30} />
+                  </p>
+                  <p
+                    className="cursor ms-1"
+                    onClick={() => addToWishList(movie.imdbID)}
+                  >
+                    <AiOutlineHeart size={30} />
+                  </p>
+                </div>
+
                 <p className="cursor">
                   <Link className="cursor mb-3" to={`/movie/${movie.imdbID}`}>
                     Go Detail Page

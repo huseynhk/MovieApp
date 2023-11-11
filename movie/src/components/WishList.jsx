@@ -1,23 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { GetMovies } from "../api/GetRequest";
 import MovieDetails from "./MovieDetails";
 import { FiEye } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
-const Year2 = () => {
+const WishList = () => {
   const [datas, setDatas] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [show, setShow] = useState(false);
-
-  const fetchMovies = async () => {
-    const response = await GetMovies();
-    const allMovies = response ? response.Search : [];
-
-    const moviesBetween2000And2022 = allMovies.filter(
-      (movie) => parseInt(movie.Year) >= 2000 && parseInt(movie.Year) <= 2023
-    );
-    setDatas(moviesBetween2000And2022);
-  };
 
   const openModal = (movie) => {
     setSelectedMovie(movie);
@@ -30,13 +20,22 @@ const Year2 = () => {
   };
 
   useEffect(() => {
-    fetchMovies();
+    const wishList = localStorage.getItem("wishList");
+    if (wishList) {
+      setDatas(JSON.parse(wishList));
+    }
   }, []);
+
+  const deleteWishMovie = (imdbID) => {
+    const deletedMovie = datas.filter((movie) => movie.imdbID !== imdbID);
+    setDatas(deletedMovie);
+    localStorage.setItem("wishList", JSON.stringify(deletedMovie));
+  };
 
   return (
     <>
-      <div className="d-flex flex-wrap h-100 justify-content-center align-items-center ">
-        {datas ? (
+      <div className="d-flex flex-wrap justify-content-center">
+        {datas && datas.length > 0 ? (
           datas.map((movie, index) => (
             <div
               key={index}
@@ -50,16 +49,25 @@ const Year2 = () => {
               />
               <div
                 className="card-body bg-dark text-white h-25 
-          d-flex justify-content-center align-items-center flex-column"
+              d-flex justify-content-center align-items-center flex-column"
               >
                 <h5 className="card-title my-3">{movie.Title.slice(0, 20)}</h5>
                 <p className="card-text">Year: {movie.Year}</p>
-                <p className="cursor" onClick={() => openModal(movie)}>
-                  <FiEye size={30} />
-                </p>
+                <div className="d-flex align-items-center ">
+                  <p className="cursor" onClick={() => openModal(movie)}>
+                    <FiEye size={30} />
+                  </p>
+                  <p
+                    className="cursor ms-1"
+                    onClick={() => deleteWishMovie(movie.imdbID)}
+                  >
+                    <AiOutlineDelete size={30} />
+                  </p>
+                </div>
+
                 <p className="cursor">
                   <Link className="cursor mb-3" to={`/movie/${movie.imdbID}`}>
-                    Go Router Page
+                    Go Detail Page
                   </Link>
                 </p>
               </div>
@@ -79,4 +87,4 @@ const Year2 = () => {
   );
 };
 
-export default Year2;
+export default WishList;

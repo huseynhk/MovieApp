@@ -3,8 +3,7 @@ import MovieRouter from "./components/MovieRouter";
 import Navbar from "./components/Navbar";
 import MovieYear from "./components/MovieYear";
 import Year2 from "./components/Year2";
-
-
+import WishList from "./components/WishList";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -16,6 +15,7 @@ function App() {
         <Route path="/movie/:movieId" element={<MovieRouter />} />
         <Route path="/year" element={<MovieYear />} />
         <Route path="/year2" element={<Year2 />} />
+        <Route path="/wish" element={<WishList />} />
       </Routes>
     </>
   );

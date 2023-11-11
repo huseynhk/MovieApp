@@ -25,12 +25,16 @@ const Navbar = () => {
             id="navbarNavDropdown"
           >
             <ul className="navbar-nav ">
-              <li className="nav-item me-2">
+              <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to={"/"}>
                   Home
                 </Link>
               </li>
-
+              <li className="nav-item mx-2">
+                <Link className="nav-link active" aria-current="page" to={"/wish"}>
+                  WishList
+                </Link>
+              </li>
               <li className="nav-item ">
                 <Link
                   className="nav-link active "
@@ -46,7 +50,7 @@ const Navbar = () => {
                   aria-current="page"
                   to={"/year2"}
                 >
-                  2000-2024
+                  2000-2023
                 </Link>
               </li>
             </ul>

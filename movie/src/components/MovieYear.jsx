@@ -40,8 +40,8 @@ const MovieYear = () => {
           datas.map((movie, index) => (
             <div
               key={index}
-              className="card m-2 border-white mt-2"
-              style={{ width: "18rem" }}
+              className="card m-4 border-white "
+              style={{ width: "20rem" }}
             >
               <img
                 src={movie.Poster}
@@ -50,7 +50,7 @@ const MovieYear = () => {
               />
               <div
                 className="card-body bg-dark text-white h-25 
-          d-flex justify-content-center align-items-center flex-column"
+                d-flex justify-content-center align-items-center flex-column"
               >
                 <h5 className="card-title my-3">{movie.Title.slice(0, 20)}</h5>
                 <p className="card-text">Year: {movie.Year}</p>
