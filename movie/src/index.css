@@ -10,12 +10,14 @@ body{
   font-family: 'Poppins', sans-serif;
   background-color: #dedede;
 }
-
 .cursor{
   cursor: pointer;
+  text-decoration: none;
+  color: white;
 }
+
 .cursor:hover{
-  color: rgb(125, 255, 25);
+  color: rgb(111, 255, 0);
   transition: .3s ease-in-out;
   scale: 1.2;
 }
@@ -26,7 +28,12 @@ body{
   object-fit: cover;
   margin-top: -16px;
   border-radius: 5px;
-  border: 1px solid rgb(134, 134, 255);
-  box-shadow: rgba(134, 134, 255, 0.50) 0px 10px 20px;
+  border: 1px solid rgb(135, 135, 255);
+  box-shadow: rgba(135, 135, 255, 0.50) 0px 10px 20px;
 }
 
+.imgs{
+  height: 95vh;
+  object-fit: cover;
+  box-shadow: rgba(135, 135, 255, 0.50) 0px 15px 25px;
+}

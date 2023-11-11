@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MovieDetails from "./MovieDetails";
 import { FiEye } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const Movie = () => {
   const [datas, setDatas] = useState([]);
@@ -106,6 +107,11 @@ const Movie = () => {
                 <p className="card-text">Year: {movie.Year}</p>
                 <p className="cursor" onClick={() => openModal(movie)}>
                   <FiEye size={30} />
+                </p>
+                <p className="cursor">
+                  <Link className="cursor mb-3" to={`/movie/${movie.imdbID}`}>
+                    Go Router Page
+                  </Link>
                 </p>
               </div>
             </div>
