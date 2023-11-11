@@ -1,30 +1,17 @@
-// Detail: https://www.omdbapi.com/?i=tt0103064&apikey=fc1fef96
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
-import axios from "axios";
+import { GetMovieDetails } from "../api/GetRequest";
 
 const MovieDetails = ({ selectedMovie, show, closeModal }) => {
   const [movieDetail, setMovieDetail] = useState(null);
 
-  const getMovieDetails = async () => {
-    if (selectedMovie) {
-      try {
-        const response = await axios.get(
-          `https://www.omdbapi.com/?i=${selectedMovie.imdbID}&apikey=fc1fef96`
-        );
-        if (response.status !== 200) {
-          console.log("Wrong");
-        } else {
-          setMovieDetail(response.data);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    }
+  const fetchMovieDetails = async () => {
+    const response = await GetMovieDetails(selectedMovie.imdbID);
+    setMovieDetail(response);
   };
 
   useEffect(() => {
-    getMovieDetails();
+    fetchMovieDetails();
   }, [selectedMovie]);
 
   useEffect(() => {
@@ -32,7 +19,7 @@ const MovieDetails = ({ selectedMovie, show, closeModal }) => {
   }, []);
 
   return (
-    <Modal show={show} onHide={closeModal} >
+    <Modal show={show} onHide={closeModal}>
       <Modal.Body>
         {movieDetail ? (
           <div>
@@ -40,7 +27,7 @@ const MovieDetails = ({ selectedMovie, show, closeModal }) => {
             <div className="mt-2 p-1 text-primary">
               <h4 className="text-danger">{movieDetail.Title}</h4>
               <p>Year: {movieDetail.Year}</p>
-              <p>Rated: {movieDetail.Rated}</p>
+              <p>Imdb: {movieDetail.imdbRating}</p>
               <p>Released: {movieDetail.Released}</p>
               <p>Runtime: {movieDetail.Runtime}</p>
               <p>Genre: {movieDetail.Genre}</p>

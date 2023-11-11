@@ -1,29 +1,22 @@
-// Title: https://omdbapi.com/?s=all&page=1&apikey=fc1fef96
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { GetMovies } from "../api/GetRequest";
 import MovieDetails from "./MovieDetails";
 import { FiEye } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import { GetMovies, GetSearchMovies } from "../api/GetRequest";
 
-const Movie = () => {
+const Year2 = () => {
   const [datas, setDatas] = useState([]);
-  const [search, setSearch] = useState("");
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [show, setShow] = useState(false);
 
   const fetchMovies = async () => {
     const response = await GetMovies();
-    setDatas(response ? response.Search : []);
-  };
+    const allMovies = response ? response.Search : [];
 
-  const fetchSearchMovies = async () => {
-    const response = await GetSearchMovies(search);
-    setDatas(response ? response.Search : []);
-  };
-
-  const resetMovies = () => {
-    fetchMovies();
-    setSearch("");
+    const moviesBetween2000And2022 = allMovies.filter(
+      (movie) => parseInt(movie.Year) >= 2000 && parseInt(movie.Year) <= 2024
+    );
+    setDatas(moviesBetween2000And2022);
   };
 
   const openModal = (movie) => {
@@ -40,38 +33,14 @@ const Movie = () => {
     fetchMovies();
   }, []);
 
-  useEffect(() => {
-    fetchSearchMovies();
-  }, [search]);
-
   return (
     <>
-      <div className="d-flex justify-content-center my-4">
-        <div className="d-flex justify-content-center flex-column">
-          <div className="input-group w-100 border border-primary rounded mt-5">
-            <input
-              type="text"
-              className="form-control "
-              placeholder="Search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-          <button
-            onClick={resetMovies}
-            className="btn btn-dark border border-light-subtle mt-2"
-          >
-            Reset
-          </button>
-        </div>
-      </div>
-
-      <div className="d-flex flex-wrap justify-content-center">
+      <div className="d-flex flex-wrap h-100 justify-content-center align-items-center ">
         {datas ? (
           datas.map((movie, index) => (
             <div
               key={index}
-              className="card m-2 border-white"
+              className="card m-2 border-white mt-2"
               style={{ width: "18rem" }}
             >
               <img
@@ -81,7 +50,7 @@ const Movie = () => {
               />
               <div
                 className="card-body bg-dark text-white h-25 
-              d-flex justify-content-center align-items-center flex-column"
+          d-flex justify-content-center align-items-center flex-column"
               >
                 <h5 className="card-title my-3">{movie.Title.slice(0, 20)}</h5>
                 <p className="card-text">Year: {movie.Year}</p>
@@ -90,7 +59,7 @@ const Movie = () => {
                 </p>
                 <p className="cursor">
                   <Link className="cursor mb-3" to={`/movie/${movie.imdbID}`}>
-                    Go Detail Page
+                    Go Router Page
                   </Link>
                 </p>
               </div>
@@ -110,4 +79,4 @@ const Movie = () => {
   );
 };
 
-export default Movie;
+export default Year2;

@@ -8,7 +8,7 @@
 
 body{
   font-family: 'Poppins', sans-serif;
-  background-color: #dedede;
+  background-color: #000;
 }
 .cursor{
   cursor: pointer;
@@ -33,7 +33,15 @@ body{
 }
 
 .imgs{
-  height: 95vh;
+  height: 100vh;
   object-fit: cover;
-  box-shadow: rgba(135, 135, 255, 0.50) 0px 15px 25px;
 }
+
+.myBg{
+  background-image: url('../assets//imgs/bg2.jpg');
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
