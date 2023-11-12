@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GetMovies } from "../api/GetRequest";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { ROUTER } from "../constant/Router";
 
 const Year2 = () => {
@@ -25,6 +26,9 @@ const Year2 = () => {
 
   return (
     <>
+        <Helmet>
+        <title>2000-2023</title>
+      </Helmet>
       <div className="d-flex flex-wrap h-100 justify-content-center align-items-center ">
         {datas ? (
           datas.map((movie, index) => (

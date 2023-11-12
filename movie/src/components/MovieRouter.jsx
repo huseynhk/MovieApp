@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { GetMovieForPage } from "../api/GetRequest";
+import { Helmet } from "react-helmet-async";
 
 const MovieRouter = () => {
   const [movieDetail, setMovieDetail] = useState("");
@@ -17,6 +18,9 @@ const MovieRouter = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Movie Details</title>
+      </Helmet>
       <div>
         {movieDetail ? (
           <div className="h-100 w-100  row  mt-3">

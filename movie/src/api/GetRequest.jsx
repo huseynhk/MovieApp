@@ -1,4 +1,3 @@
-// Detail: https://www.omdbapi.com/?i=tt0103064&apikey=fc1fef96
 import axios from "axios";
 
 const omdbApi = axios.create({

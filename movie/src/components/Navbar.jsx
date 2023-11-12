@@ -10,7 +10,11 @@ const Navbar = () => {
     <>
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark ">
         <div className="container-fluid">
-          <Link className="navbar-brand fs-3 mt-2" aria-current="page" to={ROUTER.Movie}>
+          <Link
+            className="navbar-brand fs-3 mt-2"
+            aria-current="page"
+            to={ROUTER.Movie}
+          >
             Full Film Izle
           </Link>
           <button

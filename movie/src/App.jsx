@@ -7,9 +7,10 @@ import WishList from "./components/WishList";
 import NotFound from "./components/NotFound";
 import Years from "./components/MovieYearParts/Parts/Years";
 import { Routes, Route } from "react-router-dom";
-import { ROUTER } from "./constant/Router";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ROUTER } from "./constant/Router";
+
 
 function App() {
   return (

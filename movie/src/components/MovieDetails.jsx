@@ -16,9 +16,7 @@ const MovieDetails = ({ selectedMovie, show, closeModal }) => {
     fetchMovieDetails();
   }, [selectedMovie]);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+
 
   return (
     <Modal show={show} onHide={closeModal}>

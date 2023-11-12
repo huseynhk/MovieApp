@@ -1,10 +1,14 @@
 import React from "react";
+import { Helmet } from "react-helmet-async";
 
 const NotFound = () => {
   return (
-    <div className=" d-flex justify-content-center align-items-center h-100 ">
-      <h1 className="text-danger mt-5"> 404 Error</h1>
-    </div>
+    <>
+      <Helmet>
+        <title>Error</title>
+      </Helmet>
+      <div className="myBgError"></div>
+    </>
   );
 };
 

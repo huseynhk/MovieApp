@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { GetMovies } from "../../api/GetRequest";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { ROUTER } from "../../constant/Router";
 import Years from "./Parts/Years";
 
@@ -17,16 +18,17 @@ const MovieYear = () => {
     setDatas(moviesBetween1950And2000);
   };
 
-
-
   useEffect(() => {
     fetchMovies();
   }, []);
 
   return (
     <>
+      <Helmet>
+        <title>1950-2000</title>
+      </Helmet>
       <div className="m-3 fs-3 bg-dark rounded  d-flex  justify-content-center align-items-center">
-        <Years/>
+        <Years />
       </div>
       <div className="d-flex flex-wrap h-100 justify-content-center align-items-center ">
         {datas ? (
@@ -47,9 +49,12 @@ const MovieYear = () => {
               >
                 <h5 className="card-title my-3">{movie.Title.slice(0, 20)}</h5>
                 <p className="card-text">Year: {movie.Year}</p>
-            
+
                 <p className="cursor">
-                <Link className="cursor mb-3" to={`${ROUTER.MovieRouter}/${movie.imdbID}`}>
+                  <Link
+                    className="cursor mb-3"
+                    to={`${ROUTER.MovieRouter}/${movie.imdbID}`}
+                  >
                     Go Detail Page
                   </Link>
                 </p>
@@ -60,8 +65,6 @@ const MovieYear = () => {
           <h1 className="text-danger text-center mt-5">Not Found...</h1>
         )}
       </div>
-
- 
     </>
   );
 };

@@ -3,6 +3,7 @@ import MovieDetails from "./MovieDetails";
 import { FiEye } from "react-icons/fi";
 import { AiOutlineHeart } from "react-icons/ai";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { GetMovies, GetSearchMovies } from "../api/GetRequest";
 import { ROUTER } from "../constant/Router";
@@ -72,6 +73,9 @@ const Movie = () => {
 
   return (
     <>
+       <Helmet>
+        <title>All Movies</title>
+      </Helmet>
       <div className="d-flex justify-content-center m-4">
         <div className="d-flex justify-content-center flex-column">
           <div className="input-group w-100 border border-primary rounded mt-2">

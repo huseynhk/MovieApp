@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { GetMovies } from "../../../api/GetRequest";
 import { ROUTER } from "../../../constant/Router";
 
@@ -16,14 +17,15 @@ const FirstPartYear = () => {
     setDatas(between1950and1975);
   };
 
-
-
   useEffect(() => {
     fetchMovies();
   }, []);
 
   return (
     <>
+      <Helmet>
+        <title>1950-1975</title>
+      </Helmet>
       <div className="d-flex flex-wrap h-100 justify-content-center align-items-center ">
         {datas ? (
           datas.map((movie, index) => (
@@ -43,7 +45,7 @@ const FirstPartYear = () => {
               >
                 <h5 className="card-title my-3">{movie.Title.slice(0, 20)}</h5>
                 <p className="card-text">Year: {movie.Year}</p>
-       
+
                 <p className="cursor">
                   <Link
                     className="cursor mb-3"
@@ -59,8 +61,6 @@ const FirstPartYear = () => {
           <h1 className="text-danger text-center mt-5">Not Found...</h1>
         )}
       </div>
-
-
     </>
   );
 };

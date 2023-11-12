@@ -39,7 +39,15 @@ body {
 }
 
 .myBg {
-  background-image: url("../assets//imgs/bg2.jpg");
+  background-image: url("../assets/imgs/bg2.jpg");
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.myBgError {
+  background-image: url("../assets/imgs/bgError.jpg");
   height: 100vh;
   background-position: center;
   background-repeat: no-repeat;

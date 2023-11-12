@@ -3,6 +3,7 @@ import MovieDetails from "./MovieDetails";
 import { FiEye } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { ROUTER } from "../constant/Router";
 
@@ -37,6 +38,9 @@ const WishList = () => {
 
   return (
     <>
+       <Helmet>
+        <title>WishList</title>
+      </Helmet>
       <div className="d-flex flex-wrap justify-content-center">
         {datas && datas.length > 0 ? (
           datas.map((movie, index) => (
