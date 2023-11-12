@@ -11,7 +11,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark ">
         <div className="container-fluid">
           <Link
-            className="navbar-brand fs-3 mt-2"
+            className="navbar-brand fs-2 mt-2"
             aria-current="page"
             to={ROUTER.Movie}
           >
@@ -32,8 +32,8 @@ const Navbar = () => {
             className="collapse navbar-collapse mx-2 justify-content-end"
             id="navbarNavDropdown"
           >
-            <ul className="navbar-nav py-2 ">
-              <li className="nav-item">
+            <ul className="navbar-nav py-2 align-items-center ">
+              <li className="nav-item mt-2">
                 <Link
                   className={
                     activeLink(ROUTER.Movie, pathname) ? "activeLink" : "Link"
@@ -44,7 +44,7 @@ const Navbar = () => {
                   All Movies
                 </Link>
               </li>
-              <li className="nav-item mx-3">
+              <li className="nav-item mx-3 mt-2">
                 <Link
                   className={
                     activeLink(ROUTER.WishList, pathname)
@@ -57,7 +57,7 @@ const Navbar = () => {
                   WishList
                 </Link>
               </li>
-              <li className="nav-item ">
+              <li className="nav-item mt-2">
                 <Link
                   className={
                     activeLink(ROUTER.MovieYear, pathname)
@@ -70,7 +70,7 @@ const Navbar = () => {
                   1950-2000
                 </Link>
               </li>
-              <li className="nav-item mx-3">
+              <li className="nav-item mx-3 mt-2">
                 <Link
                   className={
                     activeLink(ROUTER.Year2, pathname) ? "activeLink" : "Link"
