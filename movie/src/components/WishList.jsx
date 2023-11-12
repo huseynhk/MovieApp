@@ -33,7 +33,7 @@ const WishList = () => {
     const deletedMovie = datas.filter((movie) => movie.imdbID !== imdbID);
     setDatas(deletedMovie);
     localStorage.setItem("wishList", JSON.stringify(deletedMovie));
-    toast.error("Movie Deleted!", { autoClose: 1000 });
+    toast.success("Movie Deleted!", { autoClose: 1000 });
   };
 
   return (

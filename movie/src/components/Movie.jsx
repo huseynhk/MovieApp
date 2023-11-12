@@ -39,11 +39,11 @@ const Movie = () => {
     localStorage.setItem("wishList", JSON.stringify(wishedMovies));
     
     if (!existedMovie) {
-      toast.success("Movie added to WishList successfully!", {
+      toast.success("Movie added successfully!", {
         autoClose: 1000,
       });
     } else {
-      toast.warning("Movie already added to WishList!", { autoClose: 1000 });
+      toast.error("Movie already added!", { autoClose: 1000 });
     }
     // setWishList((prevDatas) => [...prevDatas, selectedMovie]);
   };
