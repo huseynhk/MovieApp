@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import MovieDetails from "./MovieDetails";
 import { FiEye } from "react-icons/fi";
 import { AiOutlineHeart } from "react-icons/ai";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { GetMovies, GetSearchMovies } from "../api/GetRequest";
+import { ROUTER } from "../constant/Router";
 
 const Movie = () => {
   const [datas, setDatas] = useState([]);
@@ -34,6 +36,14 @@ const Movie = () => {
       : [...wishList, selectedMovie];
     setWishList(wishedMovies);
     localStorage.setItem("wishList", JSON.stringify(wishedMovies));
+    
+    if (!existedMovie) {
+      toast.success("Movie added to WishList successfully!", {
+        autoClose: 1000,
+      });
+    } else {
+      toast.warning("Movie already added to WishList!", { autoClose: 1000 });
+    }
     // setWishList((prevDatas) => [...prevDatas, selectedMovie]);
   };
 
@@ -114,7 +124,10 @@ const Movie = () => {
                 </div>
 
                 <p className="cursor">
-                  <Link className="cursor mb-3" to={`/movie/${movie.imdbID}`}>
+                  <Link
+                    className="cursor mb-3"
+                    to={`${ROUTER.MovieRouter}/${movie.imdbID}`}
+                  >
                     Go Detail Page
                   </Link>
                 </p>

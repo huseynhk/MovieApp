@@ -1,47 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body{
-  font-family: 'Poppins', sans-serif;
+body {
+  font-family: "Poppins", sans-serif;
   background-color: #000;
 }
-.cursor{
+.cursor {
   cursor: pointer;
   text-decoration: none;
   color: white;
 }
 
-.cursor:hover{
+.cursor:hover {
   color: rgb(111, 255, 0);
-  transition: .3s ease-in-out;
+  transition: 0.3s ease-in-out;
   scale: 1.2;
 }
 
-.img{
+.img {
   width: 100%;
   height: 350px;
   object-fit: cover;
   margin-top: -16px;
   border-radius: 5px;
   border: 1px solid rgb(135, 135, 255);
-  box-shadow: rgba(135, 135, 255, 0.50) 0px 10px 20px;
+  box-shadow: rgba(135, 135, 255, 0.5) 0px 10px 20px;
 }
 
-.imgs{
-  height: 100vh;
+.imgs {
+  height: 90vh;
   object-fit: cover;
+  margin-top: -18px;
 }
 
-.myBg{
-  background-image: url('../assets//imgs/bg2.jpg');
-  height: 100%;
+.myBg {
+  background-image: url("../assets//imgs/bg2.jpg");
+  height: 100vh;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }
 
+.activeLink {
+  color: aqua;
+  text-decoration: none;
+}
+
+.Link {
+  color: white;
+  text-decoration: none;
+}
+.Link:hover {
+  color: aqua;
+  transition: 0.5s ease-in-out;
+}
+
+.links{
+  text-decoration: none;
+   list-style: none;
+}

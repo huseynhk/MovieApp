@@ -2,7 +2,9 @@ import React, { useState, useEffect } from "react";
 import MovieDetails from "./MovieDetails";
 import { FiEye } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
+import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { ROUTER } from "../constant/Router";
 
 const WishList = () => {
   const [datas, setDatas] = useState([]);
@@ -30,6 +32,7 @@ const WishList = () => {
     const deletedMovie = datas.filter((movie) => movie.imdbID !== imdbID);
     setDatas(deletedMovie);
     localStorage.setItem("wishList", JSON.stringify(deletedMovie));
+    toast.error("Movie Deleted!", { autoClose: 1000 });
   };
 
   return (
@@ -66,7 +69,7 @@ const WishList = () => {
                 </div>
 
                 <p className="cursor">
-                  <Link className="cursor mb-3" to={`/movie/${movie.imdbID}`}>
+                <Link className="cursor mb-3" to={`${ROUTER.MovieRouter}/${movie.imdbID}`}>
                     Go Detail Page
                   </Link>
                 </p>
@@ -74,7 +77,7 @@ const WishList = () => {
             </div>
           ))
         ) : (
-          <h1 className="text-danger text-center mt-5">Not Found...</h1>
+          <h1 className="text-danger text-center mt-5">Empty...</h1>
         )}
       </div>
 

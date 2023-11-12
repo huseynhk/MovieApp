@@ -1,11 +1,16 @@
 // Detail: https://www.omdbapi.com/?i=tt0103064&apikey=fc1fef96
 import axios from "axios";
 
+const omdbApi = axios.create({
+  baseURL: "https://omdbapi.com",
+  params: {
+    apikey: "fc1fef96",
+  },
+});
+
 export const GetMovies = async () => {
   try {
-    const response = await axios.get(
-      "https://omdbapi.com/?s=all&page=1&apikey=fc1fef96"
-    );
+    const response = await omdbApi.get("/?s=all&page=3");
     if (response.status !== 200) {
       throw new Error("Error fetching product");
     } else {
@@ -19,9 +24,7 @@ export const GetMovies = async () => {
 export const GetSearchMovies = async (search) => {
   if (search !== "") {
     try {
-      const response = await axios.get(
-        `https://omdbapi.com/?s=${search}&page=1&apikey=fc1fef96`
-      );
+      const response = await omdbApi.get(`/?s=${search}`);
       if (response.status !== 200) {
         throw new Error("Error fetching product");
       } else {
@@ -35,9 +38,7 @@ export const GetSearchMovies = async (search) => {
 
 export const GetMovieDetails = async (imdbID) => {
   try {
-    const response = await axios.get(
-      `https://www.omdbapi.com/?i=${imdbID}&apikey=fc1fef96`
-    );
+    const response = await omdbApi.get(`/?i=${imdbID}`);
     if (response.status !== 200) {
       throw new Error("Error fetching product");
     } else {
@@ -50,9 +51,7 @@ export const GetMovieDetails = async (imdbID) => {
 
 export const GetMovieForPage = async (movieId) => {
   try {
-    const response = await axios.get(
-      `https://www.omdbapi.com/?i=${movieId}&apikey=fc1fef96`
-    );
+    const response = await omdbApi.get(`/?i=${movieId}`);
     if (response.status !== 200) {
       throw new Error("Error fetching product");
     } else {
@@ -62,5 +61,3 @@ export const GetMovieForPage = async (movieId) => {
     console.log(error);
   }
 };
-
-

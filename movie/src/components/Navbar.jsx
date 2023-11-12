@@ -1,12 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { ROUTER } from "../constant/Router";
+import { activeLink } from "../utils/ActiveLink";
 
 const Navbar = () => {
+  const { pathname } = useLocation();
+
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark ">
         <div className="container-fluid">
-          <Link className="navbar-brand" aria-current="page" to={"/"}>
+          <Link className="navbar-brand fs-3 mt-2" aria-current="page" to={ROUTER.Movie}>
             Full Film Izle
           </Link>
           <button
@@ -24,31 +28,51 @@ const Navbar = () => {
             className="collapse navbar-collapse mx-2 justify-content-end"
             id="navbarNavDropdown"
           >
-            <ul className="navbar-nav ">
+            <ul className="navbar-nav py-2 ">
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to={"/"}>
-                  Home
+                <Link
+                  className={
+                    activeLink(ROUTER.Movie, pathname) ? "activeLink" : "Link"
+                  }
+                  aria-current="page"
+                  to={ROUTER.Movie}
+                >
+                  All Movies
                 </Link>
               </li>
-              <li className="nav-item mx-2">
-                <Link className="nav-link active" aria-current="page" to={"/wish"}>
+              <li className="nav-item mx-3">
+                <Link
+                  className={
+                    activeLink(ROUTER.WishList, pathname)
+                      ? "activeLink"
+                      : "Link"
+                  }
+                  aria-current="page"
+                  to={ROUTER.WishList}
+                >
                   WishList
                 </Link>
               </li>
               <li className="nav-item ">
                 <Link
-                  className="nav-link active "
+                  className={
+                    activeLink(ROUTER.MovieYear, pathname)
+                      ? "activeLink"
+                      : "Link"
+                  }
                   aria-current="page"
-                  to={"/year"}
+                  to={ROUTER.MovieYear}
                 >
                   1950-2000
                 </Link>
               </li>
-              <li className="nav-item mx-2">
+              <li className="nav-item mx-3">
                 <Link
-                  className="nav-link active "
+                  className={
+                    activeLink(ROUTER.Year2, pathname) ? "activeLink" : "Link"
+                  }
                   aria-current="page"
-                  to={"/year2"}
+                  to={ROUTER.Year2}
                 >
                   2000-2023
                 </Link>

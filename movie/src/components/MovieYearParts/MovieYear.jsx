@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { GetMovies } from "../api/GetRequest";
-import MovieDetails from "./MovieDetails";
-import { FiEye } from "react-icons/fi";
+import { GetMovies } from "../../api/GetRequest";
 import { Link } from "react-router-dom";
+import { ROUTER } from "../../constant/Router";
+import Years from "./Parts/Years";
 
 const MovieYear = () => {
   const [datas, setDatas] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState(null);
-  const [show, setShow] = useState(false);
 
   const fetchMovies = async () => {
     const response = await GetMovies();
@@ -19,15 +17,7 @@ const MovieYear = () => {
     setDatas(moviesBetween1950And2000);
   };
 
-  const openModal = (movie) => {
-    setSelectedMovie(movie);
-    setShow(true);
-  };
 
-  const closeModal = () => {
-    setSelectedMovie(null);
-    setShow(false);
-  };
 
   useEffect(() => {
     fetchMovies();
@@ -35,6 +25,9 @@ const MovieYear = () => {
 
   return (
     <>
+      <div className="m-3 fs-3 bg-dark rounded  d-flex  justify-content-center align-items-center">
+        <Years/>
+      </div>
       <div className="d-flex flex-wrap h-100 justify-content-center align-items-center ">
         {datas ? (
           datas.map((movie, index) => (
@@ -54,12 +47,10 @@ const MovieYear = () => {
               >
                 <h5 className="card-title my-3">{movie.Title.slice(0, 20)}</h5>
                 <p className="card-text">Year: {movie.Year}</p>
-                <p className="cursor" onClick={() => openModal(movie)}>
-                  <FiEye size={30} />
-                </p>
+            
                 <p className="cursor">
-                  <Link className="cursor mb-3" to={`/movie/${movie.imdbID}`}>
-                  Go Detail Page
+                <Link className="cursor mb-3" to={`${ROUTER.MovieRouter}/${movie.imdbID}`}>
+                    Go Detail Page
                   </Link>
                 </p>
               </div>
@@ -70,11 +61,7 @@ const MovieYear = () => {
         )}
       </div>
 
-      <MovieDetails
-        selectedMovie={selectedMovie}
-        show={show}
-        closeModal={closeModal}
-      />
+ 
     </>
   );
 };

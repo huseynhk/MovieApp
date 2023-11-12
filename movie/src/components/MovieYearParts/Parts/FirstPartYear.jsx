@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { GetMovies } from "../api/GetRequest";
 import { Link } from "react-router-dom";
-import { ROUTER } from "../constant/Router";
+import { GetMovies } from "../../../api/GetRequest";
+import { ROUTER } from "../../../constant/Router";
 
-const Year2 = () => {
+const FirstPartYear = () => {
   const [datas, setDatas] = useState([]);
-
 
   const fetchMovies = async () => {
     const response = await GetMovies();
     const allMovies = response ? response.Search : [];
 
-    const moviesAfter2000 = allMovies.filter(
-      (movie) => parseInt(movie.Year) > 2000
+    const between1950and1975 = allMovies.filter(
+      (movie) => parseInt(movie.Year) >= 1950 && parseInt(movie.Year) <= 1975
     );
-    setDatas(moviesAfter2000);
+    setDatas(between1950and1975);
   };
 
 
@@ -40,11 +39,11 @@ const Year2 = () => {
               />
               <div
                 className="card-body bg-dark text-white h-25 
-                d-flex justify-content-center align-items-center flex-column"
+          d-flex justify-content-center align-items-center flex-column"
               >
                 <h5 className="card-title my-3">{movie.Title.slice(0, 20)}</h5>
                 <p className="card-text">Year: {movie.Year}</p>
-            
+       
                 <p className="cursor">
                   <Link
                     className="cursor mb-3"
@@ -61,8 +60,9 @@ const Year2 = () => {
         )}
       </div>
 
+
     </>
   );
 };
 
-export default Year2;
+export default FirstPartYear;
