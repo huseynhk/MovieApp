@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import MovieDetails from "./MovieDetails";
 import { FiEye } from "react-icons/fi";
 import { AiOutlineHeart } from "react-icons/ai";
@@ -19,49 +19,52 @@ const Movie = () => {
       : []
   );
 
-  const fetchMovies = async () => {
+  const fetchMovies = useCallback(async () => {
     const response = await GetMovies();
     setDatas(response ? response.Search : []);
-  };
+  }, []);
 
-  const fetchSearchMovies = async () => {
+  const fetchSearchMovies = useCallback(async () => {
     const response = await GetSearchMovies(search);
     setDatas(response ? response.Search : []);
-  };
+  }, [search]);
 
-  const addToWishList = (imdbID) => {
-    const selectedMovie = datas.find((movie) => movie.imdbID === imdbID);
-    const existedMovie = wishList.find((movie) => movie.imdbID === imdbID);
-    const wishedMovies = existedMovie
-      ? [...wishList]
-      : [...wishList, selectedMovie];
-    setWishList(wishedMovies);
-    localStorage.setItem("wishList", JSON.stringify(wishedMovies));
-    
-    if (!existedMovie) {
-      toast.success("Movie added successfully!", {
-        autoClose: 1000,
-      });
-    } else {
-      toast.error("Movie already added!", { autoClose: 1000 });
-    }
-    // setWishList((prevDatas) => [...prevDatas, selectedMovie]);
-  };
+  const addToWishList = useCallback(
+    (imdbID) => {
+      const selectedMovie = datas.find((movie) => movie.imdbID === imdbID);
+      const existedMovie = wishList.find((movie) => movie.imdbID === imdbID);
+      const wishedMovies = existedMovie
+        ? [...wishList]
+        : [...wishList, selectedMovie];
+      setWishList(wishedMovies);
+      localStorage.setItem("wishList", JSON.stringify(wishedMovies));
 
-  const resetMovies = () => {
+      if (!existedMovie) {
+        toast.success("Movie added successfully!", {
+          autoClose: 1000,
+        });
+      } else {
+        toast.error("Movie already added!", { autoClose: 1000 });
+      }
+      // setWishList((prevDatas) => [...prevDatas, selectedMovie]);
+    },
+    [datas, wishList]
+  );
+
+  const resetMovies = useCallback(() => {
     fetchMovies();
     setSearch("");
-  };
+  }, [fetchMovies]);
 
-  const openModal = (movie) => {
+  const openModal = useCallback((movie) => {
     setSelectedMovie(movie);
     setShow(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setSelectedMovie(null);
     setShow(false);
-  };
+  }, []);
 
   useEffect(() => {
     fetchMovies();
@@ -73,7 +76,7 @@ const Movie = () => {
 
   return (
     <>
-       <Helmet>
+      <Helmet>
         <title>All Movies</title>
       </Helmet>
       <div className="d-flex justify-content-center m-4">

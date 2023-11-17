@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import MovieDetails from "./MovieDetails";
 import { FiEye } from "react-icons/fi";
 import { AiOutlineDelete } from "react-icons/ai";
@@ -12,15 +12,15 @@ const WishList = () => {
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [show, setShow] = useState(false);
 
-  const openModal = (movie) => {
+  const openModal = useCallback((movie) => {
     setSelectedMovie(movie);
     setShow(true);
-  };
+  }, []);
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setSelectedMovie(null);
     setShow(false);
-  };
+  }, []);
 
   useEffect(() => {
     const wishList = localStorage.getItem("wishList");
@@ -29,16 +29,19 @@ const WishList = () => {
     }
   }, []);
 
-  const deleteWishMovie = (imdbID) => {
-    const deletedMovie = datas.filter((movie) => movie.imdbID !== imdbID);
-    setDatas(deletedMovie);
-    localStorage.setItem("wishList", JSON.stringify(deletedMovie));
-    toast.success("Movie Deleted!", { autoClose: 1000 });
-  };
+  const deleteWishMovie = useCallback(
+    (imdbID) => {
+      const deletedMovie = datas.filter((movie) => movie.imdbID !== imdbID);
+      setDatas(deletedMovie);
+      localStorage.setItem("wishList", JSON.stringify(deletedMovie));
+      toast.success("Movie Deleted!", { autoClose: 1000 });
+    },
+    [datas]
+  );
 
   return (
     <>
-       <Helmet>
+      <Helmet>
         <title>WishList</title>
       </Helmet>
       <div className="d-flex flex-wrap justify-content-center">
@@ -73,7 +76,10 @@ const WishList = () => {
                 </div>
 
                 <p className="cursor">
-                <Link className="cursor mb-3" to={`${ROUTER.MovieRouter}/${movie.imdbID}`}>
+                  <Link
+                    className="cursor mb-3"
+                    to={`${ROUTER.MovieRouter}/${movie.imdbID}`}
+                  >
                     Go Detail Page
                   </Link>
                 </p>
