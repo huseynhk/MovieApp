@@ -9,11 +9,12 @@ const Navbar = () => {
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-dark navbar-dark ">
-        <div className="container-fluid">
+        <div className="container-fluid px-5">
           <Link
             className="navbar-brand fs-2 mt-2"
             aria-current="page"
             to={ROUTER.Movie}
+            style={{color:"cyan"}}
           >
             Full Film Izle
           </Link>
@@ -54,7 +55,7 @@ const Navbar = () => {
                   aria-current="page"
                   to={ROUTER.WishList}
                 >
-                  WishList
+                  WatchList
                 </Link>
               </li>
               <li className="nav-item mt-2">

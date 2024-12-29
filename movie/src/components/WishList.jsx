@@ -6,11 +6,13 @@ import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { ROUTER } from "../constant/Router";
+import { Modal } from "react-bootstrap";
 
 const WishList = () => {
   const [datas, setDatas] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [show, setShow] = useState(false);
+  const [movieToDelete, setMovieToDelete] = useState(null);
 
   const openModal = useCallback((movie) => {
     setSelectedMovie(movie);
@@ -22,6 +24,13 @@ const WishList = () => {
     setShow(false);
   }, []);
 
+  const openDeleteModal = (movie) => {
+    setMovieToDelete(movie);
+  };
+
+  const closeDeleteModal = () => {
+    setMovieToDelete(null);
+  };
   useEffect(() => {
     const wishList = localStorage.getItem("wishList");
     if (wishList) {
@@ -29,15 +38,17 @@ const WishList = () => {
     }
   }, []);
 
-  const deleteWishMovie = useCallback(
-    (imdbID) => {
-      const deletedMovie = datas.filter((movie) => movie.imdbID !== imdbID);
+  const confirmDelete = () => {
+    if (movieToDelete) {
+      const deletedMovie = datas.filter(
+        (movie) => movie.imdbID !== movieToDelete.imdbID
+      );
       setDatas(deletedMovie);
       localStorage.setItem("wishList", JSON.stringify(deletedMovie));
       toast.success("Movie Deleted!", { autoClose: 1000 });
-    },
-    [datas]
-  );
+    }
+    closeDeleteModal();
+  };
 
   return (
     <>
@@ -54,30 +65,31 @@ const WishList = () => {
             >
               <img
                 src={movie.Poster}
-                className="card-img-top h-75 object-fit-cover"
+                className="card-img-top img"
                 alt={movie.Title}
               />
               <div
                 className="card-body bg-dark text-white h-25 
               d-flex justify-content-center align-items-center flex-column"
               >
-                <h5 className="card-title my-3">{movie.Title.slice(0, 20)}</h5>
+                <h5 className="card-title my-3 truncate">{movie.Title}</h5>
                 <p className="card-text">Year: {movie.Year}</p>
                 <div className="d-flex align-items-center ">
                   <p className="cursor" onClick={() => openModal(movie)}>
-                    <FiEye size={30} />
+                    <FiEye color="cyan" size={30} />
                   </p>
                   <p
-                    className="cursor ms-1"
-                    onClick={() => deleteWishMovie(movie.imdbID)}
+                    className="cursor ms-2"
+                    onClick={() => openDeleteModal(movie)}
                   >
-                    <AiOutlineDelete size={30} />
+                    <AiOutlineDelete color="orange" size={30} />
                   </p>
                 </div>
 
                 <p className="cursor">
                   <Link
                     className="cursor mb-3"
+                    style={{color:"#c7ff6c"}}
                     to={`${ROUTER.MovieRouter}/${movie.imdbID}`}
                   >
                     Go Detail Page
@@ -96,6 +108,23 @@ const WishList = () => {
         show={show}
         closeModal={closeModal}
       />
+      <Modal show={movieToDelete} onHide={closeDeleteModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Delete</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Are you sure you want to delete "{movieToDelete?.Title}" from your
+          wishlist?
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-secondary" onClick={closeDeleteModal}>
+            Cancel
+          </button>
+          <button className="btn btn-danger" onClick={confirmDelete}>
+            Delete
+          </button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };

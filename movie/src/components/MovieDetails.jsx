@@ -16,8 +16,6 @@ const MovieDetails = ({ selectedMovie, show, closeModal }) => {
     fetchMovieDetails();
   }, [selectedMovie]);
 
-
-
   return (
     <Modal show={show} onHide={closeModal}>
       <Modal.Body>
@@ -25,14 +23,14 @@ const MovieDetails = ({ selectedMovie, show, closeModal }) => {
           <div>
             <img src={movieDetail.Poster} className="img" />
             <div className="mt-2 p-1 text-primary">
-              <h4 className="text-danger">{movieDetail.Title}</h4>
+              <h4 className="text-danger truncate">{movieDetail.Title}</h4>
               <p>Year: {movieDetail.Year}</p>
               <p>Imdb: {movieDetail.imdbRating}</p>
               <p>Released: {movieDetail.Released}</p>
               <p>Runtime: {movieDetail.Runtime}</p>
               <p>Genre: {movieDetail.Genre}</p>
               <p>Director: {movieDetail.Director}</p>
-              <p>Plot: {movieDetail.Plot.slice(0, 45)}...</p>
+              <p className="truncate">Plot: {movieDetail.Plot}</p>
             </div>
           </div>
         ) : (

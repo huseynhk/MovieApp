@@ -31,7 +31,9 @@ const MovieRouter = () => {
               className=" p-4 text-white text-center fs-5 imgs col-lg-6 
               col-sm-12 d-flex justify-content-center flex-column"
             >
-              <h3 className="text-danger fs-2 mb-3">{movieDetail.Title}</h3>
+              <h3 className="text-danger fs-2 mb-3 truncate">
+                {movieDetail.Title}
+              </h3>
               <p>Year: {movieDetail.Year}</p>
               <p>Rated: {movieDetail.Rated}</p>
               <p>Released: {movieDetail.Released}</p>
@@ -39,11 +41,15 @@ const MovieRouter = () => {
               <p className="text-warning">Imdb: {movieDetail.imdbRating}</p>
               <p>Genre: {movieDetail.Genre}</p>
               <p>Director: {movieDetail.Director}</p>
-              <p>Plot: {movieDetail.Plot.slice(0, 100)}...</p>
+              <p className="truncate">Plot: {movieDetail.Plot}...</p>
             </div>
           </div>
         ) : (
-          <h3 className="text-danger text-center">Loading...</h3>
+          <div className="d-flex justify-content-center align-items-center" style={{height:"30vh"}}>
+            <h3 style={{color:"#c7ff6c"}} className="text-center font-weight-bolder">
+              Loading...
+            </h3>
+          </div>
         )}
       </div>
     </>

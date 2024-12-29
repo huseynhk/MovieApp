@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import MovieDetails from "./MovieDetails";
 import { FiEye } from "react-icons/fi";
-import { AiOutlineHeart } from "react-icons/ai";
+import { IoHeartOutline, IoHeartSharp } from "react-icons/io5";
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
@@ -44,7 +44,7 @@ const Movie = () => {
           autoClose: 1000,
         });
       } else {
-        toast.error("Movie already added!", { autoClose: 1000 });
+        toast.warning("Movie already added!", { autoClose: 1000 });
       }
       // setWishList((prevDatas) => [...prevDatas, selectedMovie]);
     },
@@ -74,6 +74,12 @@ const Movie = () => {
     fetchSearchMovies();
   }, [search]);
 
+
+  useEffect(() => {
+    if (search === '') {
+      fetchMovies(); 
+    }
+  }, [search]);
   return (
     <>
       <Helmet>
@@ -84,65 +90,78 @@ const Movie = () => {
           <div className="input-group w-100 border border-primary rounded mt-2">
             <input
               type="text"
-              className="form-control"
+              className="form-control px-3 py-2"
               placeholder="Search"
               value={search}
+              style={{width:"450px"}}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <button
+          {/* <button
             onClick={resetMovies}
-            className="btn btn-dark border border-light-subtle mt-2"
+            className="btn btn-dark border border-light-subtle mt-2 py-2"
           >
             Reset
-          </button>
+          </button> */}
         </div>
       </div>
 
       <div className="d-flex flex-wrap justify-content-center">
         {datas ? (
-          datas.map((movie, index) => (
-            <div
-              key={index}
-              className="card m-4 border-white"
-              style={{ width: "20rem" }}
-            >
-              <img
-                src={movie.Poster}
-                className="card-img-top h-75 object-fit-cover"
-                alt={movie.Title}
-              />
+          datas.map((movie, index) => {
+            const isInWishList = wishList.some(
+              (item) => item.imdbID === movie.imdbID
+            );
+            return (
               <div
-                className="card-body bg-dark text-white h-25 
-              d-flex justify-content-center align-items-center flex-column"
+                key={index}
+                className="card m-4 border-white"
+                style={{ width: "20rem" }}
               >
-                <h5 className="card-title my-3">{movie.Title.slice(0, 20)}</h5>
-                <p className="card-text">Year: {movie.Year}</p>
-                <div className="d-flex align-items-center ">
-                  <p className="cursor" onClick={() => openModal(movie)}>
-                    <FiEye size={30} />
-                  </p>
-                  <p
-                    className="cursor ms-1"
-                    onClick={() => addToWishList(movie.imdbID)}
-                  >
-                    <AiOutlineHeart size={30} />
+                <img
+                  src={movie.Poster}
+                  className="card-img-top img"
+                  alt={movie.Title}
+                />
+                <div
+                  className="card-body bg-dark text-white h-25 
+                d-flex justify-content-center align-items-center flex-column"
+                >
+                  <h5 className="card-title my-3 truncate">
+                    {movie.Title}
+                  </h5>
+                  <p className="card-text">Year: {movie.Year}</p>
+                  <div className="d-flex align-items-center ">
+                    <p className="cursor" onClick={() => openModal(movie)}>
+                      <FiEye color="cyan" size={30} />
+                    </p>
+                    <p
+                      className="cursor ms-2"
+                      onClick={() => addToWishList(movie.imdbID)}
+                    >
+                      {isInWishList ? (
+                        <IoHeartSharp color="red" size={30} />
+                      ) : (
+                        <IoHeartOutline color="red" size={30} />
+                      )}
+                    </p>
+                  </div>
+
+                  <p className="cursor">
+                    <Link
+                      className="cursor mb-3"
+                      style={{color:"#c7ff6c"}}
+                      to={`${ROUTER.MovieRouter}/${movie.imdbID}`}
+                    >
+                      Go Detail Page
+                    </Link>
                   </p>
                 </div>
-
-                <p className="cursor">
-                  <Link
-                    className="cursor mb-3"
-                    to={`${ROUTER.MovieRouter}/${movie.imdbID}`}
-                  >
-                    Go Detail Page
-                  </Link>
-                </p>
               </div>
-            </div>
-          ))
+            );
+          })
         ) : (
-          <h1 className="text-danger text-center mt-5">Not Found...</h1>
+          <h1 className="text-center mt-5" style={{color:"#c7ff6c"}}>Not Found...</h1>
         )}
       </div>
 
