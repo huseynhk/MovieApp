@@ -114,7 +114,7 @@ const WishList = () => {
         </Modal.Header>
         <Modal.Body>
           Are you sure you want to delete "{movieToDelete?.Title}" from your
-          wishlist?
+          watchlist?
         </Modal.Body>
         <Modal.Footer>
           <button className="btn btn-secondary" onClick={closeDeleteModal}>
