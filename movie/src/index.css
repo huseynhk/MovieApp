@@ -1,7 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
-
-
 * {
   margin: 0;
   padding: 0;
@@ -38,9 +36,10 @@ body::-webkit-scrollbar {
 }
 
 .imgs {
-  height: 90vh;
+  height: 85vh;
   object-fit: cover;
-  margin-top: -18px;
+  border-top-right-radius: 25px; 
+  border-bottom-right-radius: 25px;
 }
 
 .myBg {

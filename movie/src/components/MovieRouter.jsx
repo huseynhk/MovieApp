@@ -23,15 +23,16 @@ const MovieRouter = () => {
       </Helmet>
       <div>
         {movieDetail ? (
-          <div className="h-100 w-100  row  mt-3">
-            <div className="col-lg-6 col-sm-12 ">
+          <div className="h-100 w-100  row  mt-3 " >
+            <div className="col-lg-4 col-sm-12 ">
               <img src={movieDetail.Poster} className="imgs w-100" />
             </div>
             <div
-              className=" p-4 text-white text-center fs-5 imgs col-lg-6 
+            
+              className="p-4 text-white text-center fs-5 imgs col-lg-8 
               col-sm-12 d-flex justify-content-center flex-column"
             >
-              <h3 className="text-danger fs-2 mb-3 truncate">
+              <h3 style={{color:"#7effa7"}} className=" fs-2 mb-3 truncate">
                 {movieDetail.Title}
               </h3>
               <p>Year: {movieDetail.Year}</p>
