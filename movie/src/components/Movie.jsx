@@ -90,10 +90,10 @@ const Movie = () => {
           <div className="input-group w-100 border border-primary rounded mt-2">
             <input
               type="text"
-              className="form-control px-3 py-2"
+              className="form-control px-3 py-2 "
               placeholder="Search"
               value={search}
-              style={{width:"450px"}}
+              style={{width:"20rem"}}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
